@@ -1,0 +1,29 @@
+public class Solution {
+    public bool IsAnagram(string s, string t) {
+        //First approach
+        if(s.Length != t.Length) return false;
+        Char[] firstCharArray = s.ToCharArray();
+        Char[] secondCharArray = t.ToCharArray();
+        
+        Dictionary<Char, int> charCounter = new Dictionary<Char, int>();
+        int i;
+        for(i = 0; i < firstCharArray.Length; i++){
+            if(charCounter.ContainsKey(firstCharArray[i]))
+            charCounter[firstCharArray[i]] = charCounter[firstCharArray[i]]+1;
+            else
+                charCounter.Add(firstCharArray[i],1);
+        }
+         for(i = 0; i < secondCharArray.Length; i++){
+            if(charCounter.ContainsKey(secondCharArray[i]) && charCounter[secondCharArray[i]] > 0)
+            charCounter[secondCharArray[i]] = charCounter[secondCharArray[i]]-1;
+            else
+               return false;
+        }
+         
+        if(charCounter.All(x => x.Value == 0))
+            return true;
+        
+        return false;
+        
+    }
+}
